@@ -5,6 +5,28 @@
 #include "GLFW/glfw3.h"
 
 
+uint32_t GetShaderDataTypeCount(EShaderDataType type)
+{
+	switch (type)
+	{
+	case EShaderDataType::None:		return 0;
+	case EShaderDataType::Float:	return 1;
+	case EShaderDataType::Float2:	return 2;
+	case EShaderDataType::Float3:	return 3;
+	case EShaderDataType::Float4:	return 4;
+	case EShaderDataType::Mat3:		return 9;
+	case EShaderDataType::Mat4:		return 16;
+	case EShaderDataType::Int:		return 1;
+	case EShaderDataType::Int2:		return 2;
+	case EShaderDataType::Int3:		return 3;
+	case EShaderDataType::Int4:		return 4;
+	case EShaderDataType::Bool:		return 1;
+	}
+
+	ASSERT(false, "Unknown EShaderDataType");
+	return 0;
+}
+
 // ------------------
 //  !FBufferElement
 // ------------------
@@ -41,14 +63,16 @@ FBufferElement::FBufferElement(EShaderDataType type, const std::string& name, bo
 
 FBufferLayout::FBufferLayout()
 {
-	Stride = 0;
 	Elements = {};
+	Stride = 0;
+	Size = 0;
 }
 
 FBufferLayout::FBufferLayout(const std::initializer_list<FBufferElement>& elements)
 {
 	Elements = elements;
 	Stride = 0;
+	Size = 0;
 
 	CalculateOffsetAndStride();
 }
@@ -61,6 +85,7 @@ void FBufferLayout::CalculateOffsetAndStride()
 		element.Offset = offset;
 		offset += element.Size;
 		Stride += element.Size;
+		Size += GetShaderDataTypeCount(element.Type);
 	}
 }
 

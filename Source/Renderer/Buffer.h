@@ -36,6 +36,7 @@ public:
 
 	inline const std::vector<FBufferElement>& GetElements() const { return Elements; }
 	inline const uint32_t GetStride() const { return Stride; }
+	inline const uint32_t GetSize() const { return Size; }
 
 	inline std::vector<FBufferElement>::iterator begin() { return Elements.begin(); }
 	inline std::vector<FBufferElement>::iterator end() { return Elements.end(); }
@@ -47,6 +48,7 @@ private:
 
 	std::vector<FBufferElement> Elements;
 	uint32_t Stride;
+	uint32_t Size;
 };
 
 class UVertexBuffer

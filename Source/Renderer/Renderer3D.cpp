@@ -13,7 +13,7 @@ URenderer3D::URenderer3D()
 	Shader.reset(new UShader("Assets/shaders/default3.glsl"));
 	Camera.reset(new UCamera(GetApp()->GetWindow()->GetWidth() / GetApp()->GetWindow()->GetHeight(), 2.0f));
 
-	URenderingCommand::WireframeOn();
+	//URenderingCommand::WireframeOn();
 
 	Planet.GenerateSphereMesh(1.0f, 16, 16);
 }
@@ -70,10 +70,6 @@ void URenderer3D::RenderSphere()
     URenderingCommand::Clear();
     URenderingCommand::SetClearColor(glm::vec4(0.1, 0.1, 0.1, 1.0));
 
-    FBufferLayout layout = {
-		{ EShaderDataType::Float3, "aPosition" }
-    };
-
     std::shared_ptr<UVertexArray> vArray;
     std::shared_ptr<UVertexBuffer> vBuffer;
     std::shared_ptr<UIndexBuffer> iBuffer;
@@ -82,7 +78,7 @@ void URenderer3D::RenderSphere()
     vBuffer.reset(new UVertexBuffer(Planet.GetVerticesData(), sizeof(float) * Planet.GetVerticesCount()));
     iBuffer.reset(new UIndexBuffer(Planet.GetIndicesData(), Planet.GetIndicesCount()));
 
-    vBuffer->SetLayout(layout);
+    vBuffer->SetLayout(Planet.GetBufferLayout());
 
     vArray->AddVertexBuffer(vBuffer);
     vArray->SetIndexBuffer(iBuffer);

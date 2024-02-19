@@ -4,16 +4,25 @@
 
 #define M_PI 3.14159265358979323846 
 
+UPlanetMesh::UPlanetMesh()
+{
+    BufferLayout = {
+        { EShaderDataType::Float3, "aPosition" },
+        { EShaderDataType::Float3, "aNormal" }
+    };
+}
+
 void UPlanetMesh::GenerateSphereMesh(float radius, int rings, int segments)
 {
     Vertices.clear();
     Indices.clear();
 
-    Vertices.reserve(size_t(3) * rings * segments);
+    Vertices.reserve(size_t(BufferLayout.GetSize()) * rings * segments);
     Indices.reserve(0);
 
 	float segmentStep = M_PI / segments;
 	float ringStep = 2 * M_PI / rings;
+    float invRadius = 1 / radius;
 
 	for (int i = 0; i <= segments; i++)
 	{
@@ -24,10 +33,18 @@ void UPlanetMesh::GenerateSphereMesh(float radius, int rings, int segments)
 		for (int j = 0; j <= rings; j++)
 		{
 			float ringAngle = j * ringStep;
+            float x = xz * cosf(ringAngle);
+            float z = xz * sinf(ringAngle);
 
-			Vertices.push_back(xz * cosf(ringAngle));
+            // vertices
+			Vertices.push_back(x);
 			Vertices.push_back(y);
-			Vertices.push_back(xz * sinf(ringAngle));
+			Vertices.push_back(z);
+
+            // normals
+            Vertices.push_back(x * invRadius);
+            Vertices.push_back(y * invRadius);
+            Vertices.push_back(z * invRadius);
 		}
 	}
 

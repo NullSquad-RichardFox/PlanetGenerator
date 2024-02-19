@@ -10,7 +10,7 @@ uint32_t GetShaderDataTypeComponentCount(EShaderDataType type)
 	switch (type)
 	{
 	case EShaderDataType::None:		return 0;
-	case EShaderDataType::Float:		return 1;
+	case EShaderDataType::Float:	return 1;
 	case EShaderDataType::Float2:	return 2;
 	case EShaderDataType::Float3:	return 3;
 	case EShaderDataType::Float4:	return 4;
