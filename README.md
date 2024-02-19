@@ -2,4 +2,4 @@ Planet Generator is a program that can procedurally generate a terrestrial plane
 
 To generate project files:
 1. clone the repository recursively
-2. run an apropriate batch file from the 'Scripts/' directory.
+2. run an apropriate batch file from the `Scripts/` directory.
