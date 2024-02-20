@@ -91,3 +91,8 @@ void URenderer3D::RenderSphere()
 
     URenderingCommand::DrawElements(vArray);
 }
+
+void URenderer3D::SetPlanetData(int rings, int segments)
+{
+	Planet.GenerateSphereMesh(1.0f, rings, segments);
+}

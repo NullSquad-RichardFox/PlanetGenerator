@@ -12,11 +12,18 @@
 class ULog
 {
 public:
+	// Initializes global loggers
 	static void Initialize();
-	static std::shared_ptr<spdlog::logger>& GetLogger() { return sCoreLogger; }
+
+	// Registers object specific event logger
+	static FUUID RegisterEventLogger(const std::string& loggerName);
+
+	inline static std::shared_ptr<spdlog::logger>& GetLogger() { return sCoreLogger; }
+	inline static std::shared_ptr<spdlog::logger>& GetEventLogger(FUUID id) { return sEventLoggers[id]; }
 
 private:
 	static std::shared_ptr<spdlog::logger> sCoreLogger;
+	static std::unordered_map<FUUID, std::shared_ptr<spdlog::logger>> sEventLoggers;
 };
 
 template<typename OStream, glm::length_t L, typename T, glm::qualifier Q>
@@ -45,7 +52,7 @@ inline OStream& operator<<(OStream& os, glm::qua<T, Q> quaternion)
 #define LOG_CRITICAL(...) ULog::GetLogger()->critical(__VA_ARGS__)
 
 #define LOG(...) LOG_TRACE(__VA_ARGS__)
-#define EVENT_LOG(...)
+#define EVENT_LOG(id, ...) ULog::GetEventLogger(id)->trace(__VA_ARGS__)
 
 #define INTERNAL_ASSERT_IMPL(check, msg, ...) { if (!(check)) { LOG_ERROR(msg, __VA_ARGS__); __debugbreak(); } }
 #define ASSERT(check, msg) INTERNAL_ASSERT_IMPL(check, "Assertion failed: {0}", msg)

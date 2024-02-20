@@ -17,13 +17,16 @@
 		\
 	public:\
 		D##delegateName##Handle()\
-			:m_Events({}) {}\
+		{\
+			m_Events = {};\
+			LoggerID = ULog::RegisterEventLogger(eventName);\
+		}\
 		\
 		inline FUUID BindEvent(compParams comma void* BindObj, std::function<callback> Callback)\
 		{\
 			FUUID uuid;\
 			m_Events[uuid] = delegateName(std::make_tuple(compArgs), Callback, BindObj);\
-			EVENT_LOG("New listener bound to event {0}, current size {1}.", eventName, m_Events.size());\
+			EVENT_LOG(LoggerID, "New listener bound to event {0}, current size {1}.", eventName, m_Events.size());\
 			return uuid;\
 		}\
 		\
@@ -34,7 +37,7 @@
 		\
 		inline void Broadcast(compParams retParams)\
 		{\
-			EVENT_LOG("Event {0} broadcasted to {1} listeners.", eventName, m_Events.size());\
+			EVENT_LOG(LoggerID, "Event {0} broadcasted to {1} listeners.", eventName, m_Events.size());\
 			for (const auto& [uuid, event] : m_Events)\
 			{\
 				if (event.BoundObj == nullptr)\
@@ -47,7 +50,7 @@
 				if (!event.Comparison._Equals(std::make_tuple(compArgs))) continue;\
 				\
 				event.Callback(retArgs);\
-				EVENT_LOG("Event {0} called.", eventName);\
+				EVENT_LOG(LoggerID, "Event {0} called.", eventName);\
 			}\
 		}\
 		inline const std::unordered_map<FUUID, delegateName>& GetBoundEvents() const { return m_Events; }\
@@ -55,6 +58,7 @@
 	private:\
 		std::unordered_map<FUUID, delegateName> m_Events;\
 		std::string m_Name = eventName;\
+		FUUID LoggerID;\
 	};
 
 

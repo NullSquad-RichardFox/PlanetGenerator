@@ -62,6 +62,8 @@ void UApplication::Run()
 
 	// .ImGui variables
 	bool bWireframe = false;
+	int planetRings = 16;
+	int planetSegments = 16;
 
 	// Main game loop
 	while (bRunning)
@@ -87,6 +89,12 @@ void UApplication::Run()
 
 		if (ImGui::Checkbox("Wireframe", &bWireframe))
 			bWireframe ? URenderingCommand::WireframeOn() : URenderingCommand::WireframeOff();
+
+		bool bRingsActive = ImGui::SliderInt("Rings", &planetRings, 0, 60);
+		bool bSegmentsActive = ImGui::SliderInt("Segments", &planetSegments, 0, 60);
+
+		if (bRingsActive || bSegmentsActive)
+			Renderer3D->SetPlanetData(planetRings, planetSegments);
 
 		ImGui::End();
 
