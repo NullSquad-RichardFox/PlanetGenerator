@@ -14,6 +14,7 @@ group "Dependencies"
 include "ThirdParty/Glad/Glad.lua"
 include "ThirdParty/GLFW/GLFW.lua"
 include "ThirdParty/msdf-atlas-gen/msdf-atlas-gen.lua"
+include "ThirdParty/ImGui/ImGui.lua"
 group ""
 
 group "Generator"
@@ -44,14 +45,16 @@ project "Generator"
         "ThirdParty/stb_image/include",
         "ThirdParty/glm/include",
         "ThirdParty/msdf-atlas-gen",
-        "ThirdParty/msdf-atlas-gen/msdfgen"
+        "ThirdParty/msdf-atlas-gen/msdfgen",
+        "ThirdParty/ImGui"
     }
 
     links 
     {
         "Glad",
         "GLFW",
-        "msdf-atlas-gen"
+        "msdf-atlas-gen",
+        "ImGui"
     }
 
 group ""

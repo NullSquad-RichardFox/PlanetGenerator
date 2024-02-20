@@ -39,6 +39,7 @@
 
 # Other
 *.Log
+*.ini
 
 # Visual Studio files
 /.vs

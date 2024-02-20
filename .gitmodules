@@ -7,3 +7,7 @@
 [submodule "ThirdParty/msdf-atlas-gen"]
 	path = ThirdParty/msdf-atlas-gen
 	url = https://github.com/NullSquad-RichardFox/msdf-atlas-gen
+[submodule "ThirdParty/ImGui"]
+	path = ThirdParty/ImGui
+	url = https://github.com/NullSquad-RichardFox/ImGui/
+	branch = docking

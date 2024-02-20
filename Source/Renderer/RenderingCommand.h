@@ -12,6 +12,8 @@ public:
 	// Initializes Glad
 	static void InitializeContext(void* windowHandle);
 
+	static bool ShouldWindowClose(void* windowHandle);
+
 	// Enables color blending
 	static void EnableBlending();
 

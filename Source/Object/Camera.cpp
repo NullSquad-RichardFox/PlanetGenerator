@@ -31,8 +31,8 @@ void UCamera::OnMouseMoved(glm::vec2 offset)
 
 	if (UInput::IsKeyPressed(Keys::LeftMouseButton))
 	{
-		Rotation.x += MouseSensitivity * offset.x * UTime::GetDeltaTime();
-		Rotation.y += MouseSensitivity * offset.y * UTime::GetDeltaTime();
+		Rotation.x -= MouseSensitivity * offset.x * UTime::GetDeltaTime();
+		Rotation.y -= MouseSensitivity * offset.y * UTime::GetDeltaTime();
 		RecalculateMatrices();
 	}
 }

@@ -19,6 +19,11 @@ void URenderingCommand::InitializeContext(void* windowHandle)
 	ASSERT(status, "Glad failed to load!");
 }
 
+bool URenderingCommand::ShouldWindowClose(void* windowHandle)
+{
+	return glfwWindowShouldClose((GLFWwindow*)windowHandle);
+}
+
 void URenderingCommand::EnableBlending()
 {
 	glEnable(GL_BLEND);

@@ -30,7 +30,7 @@ public:
 	// Returns GLFW window pointer
 	inline void* GetNativeWindow() const { return WindowHandle.get(); }
 
-	// Returns true if the window hasn't been closed
+	// Returns true if the window is still opened
 	inline bool IsRunning() const { return Data.bRunning; }
 
 	inline int GetWidth() const { return Data.Width; }
