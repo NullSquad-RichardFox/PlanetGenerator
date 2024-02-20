@@ -60,6 +60,7 @@ void UApplication::Run()
 {
 	bRunning = true;
 
+	// .ImGui variables
 	bool bWireframe = false;
 
 	// Main game loop
@@ -72,6 +73,8 @@ void UApplication::Run()
 		//Renderer2D->OnUpdate(deltaTime);
 		Renderer3D->RenderSphere();
 
+
+		// .ImGui begin
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplGlfw_NewFrame();
 		ImGui::NewFrame();

@@ -34,11 +34,10 @@
 # Binaries
 **/Binaries
 **/Intermediate
-**/bin
-**/bin-int
+**/Saved
 
 # Other
-*.Log
+*.log
 *.ini
 
 # Visual Studio files
